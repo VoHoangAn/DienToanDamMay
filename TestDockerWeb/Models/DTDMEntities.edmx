@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DienToanDamMayModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nchar" MaxLength="255" Nullable="false" />
+          <Property Name="password" Type="nchar" MaxLength="255" Nullable="false" />
+          <Property Name="isadmin" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ManageContainer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nchar" MaxLength="255" Nullable="false" />
+          <Property Name="containername" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ip" Type="nchar" MaxLength="16" Nullable="false" />
+          <Property Name="port" Type="int" Nullable="false" />
+          <Property Name="cpu" Type="float" Nullable="false" />
+          <Property Name="ram" Type="nchar" MaxLength="255" Nullable="false" />
+          <Property Name="sshkey" Type="nchar" MaxLength="255" Nullable="false" />
+          <Property Name="enddate" Type="datetime" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="sshcommand" Type="nchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ManageContainer_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="ManageContainer" Type="Self.ManageContainer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="ManageContainer">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DienToanDamMayModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManageContainer" EntityType="Self.ManageContainer" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ManageContainer_Account" Association="Self.FK_ManageContainer_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ManageContainer" EntitySet="ManageContainer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DienToanDamMayModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DienToanDamMayEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Account" EntityType="DienToanDamMayModel.Account" />
+          <EntitySet Name="ManageContainer" EntityType="DienToanDamMayModel.ManageContainer" />
+          <AssociationSet Name="FK_ManageContainer_Account" Association="DienToanDamMayModel.FK_ManageContainer_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="ManageContainer" EntitySet="ManageContainer" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="isadmin" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ManageContainer" Relationship="DienToanDamMayModel.FK_ManageContainer_Account" FromRole="Account" ToRole="ManageContainer" />
+        </EntityType>
+        <EntityType Name="ManageContainer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="containername" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ip" Type="String" Nullable="false" MaxLength="16" FixedLength="true" Unicode="true" />
+          <Property Name="port" Type="Int32" Nullable="false" />
+          <Property Name="cpu" Type="Double" Nullable="false" />
+          <Property Name="ram" Type="String" Nullable="false" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="sshkey" Type="String" Nullable="false" MaxLength="255" FixedLength="true" Unicode="true" />
+          <Property Name="enddate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="sshcommand" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Account" Relationship="DienToanDamMayModel.FK_ManageContainer_Account" FromRole="ManageContainer" ToRole="Account" />
+        </EntityType>
+        <Association Name="FK_ManageContainer_Account">
+          <End Type="DienToanDamMayModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="DienToanDamMayModel.ManageContainer" Role="ManageContainer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="ManageContainer">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DienToanDamMayModelStoreContainer" CdmEntityContainer="DienToanDamMayEntities">
+          <EntitySetMapping Name="Account">
+            <EntityTypeMapping TypeName="DienToanDamMayModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="isadmin" ColumnName="isadmin" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManageContainer">
+            <EntityTypeMapping TypeName="DienToanDamMayModel.ManageContainer">
+              <MappingFragment StoreEntitySet="ManageContainer">
+                <ScalarProperty Name="sshcommand" ColumnName="sshcommand" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="enddate" ColumnName="enddate" />
+                <ScalarProperty Name="sshkey" ColumnName="sshkey" />
+                <ScalarProperty Name="ram" ColumnName="ram" />
+                <ScalarProperty Name="cpu" ColumnName="cpu" />
+                <ScalarProperty Name="port" ColumnName="port" />
+                <ScalarProperty Name="ip" ColumnName="ip" />
+                <ScalarProperty Name="containername" ColumnName="containername" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,176 @@
+﻿@model IEnumerable<TestDockerWeb.Models.ManageContainer>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>User - Manage Container</title>
+    <link href="/Content/css-admin/styles.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+</head>
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand" href="@Url.Action("UserContainer","Home")">Home</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+        <!-- Navbar-->
+        <ul class="navbar-nav ml-auto ml-md-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="@Url.Action("ChangePassword","Home")">Change password</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="@Url.Action("Logout","Home")">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav">
+        @*<div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Hệ thống</div>
+                            <a class="nav-link" href="Index">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                    Doanh thu
+                                </a>
+                            <div class="sb-sidenav-menu-heading">Tác vụ</div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Quản lý
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="@Url.Action("ManageProducts","MyShop")">Quản lý container</a>
+                                        <a class="nav-link" href="@Url.Action("BillInProcess","MyShop")">Quản lý hóa đơn</a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>*@
+        @*<div id="layoutSidenav_content">*@
+        <!--body-->
+        <div class="container-fluid" style="margin-top:50px">
+            <h1 class="mt-4 text-center">Quản lý Container</h1>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table mr-1"></i>
+                    Danh sách container
+                    <button class="btn btn-primary  btn-sm rounded-0 "><i class="fa fa-delicious"></i>@Html.ActionLink("Initial Container", "InitialContainer", new { }, new { Style = "color:White;" })</button>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Container ID</th>
+                                    <th>CPU</th>
+                                    <th>RAM</th>
+                                    <th>SSH Key</th>
+                                    <th>End Date</th>
+                                    @*<th>Status</th>*@
+                                    <th>Ssh Command</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            @*<tfoot>
+                                    <tr>
+                                        <th>Tên</th>
+                                        <th>Giá</th>
+                                        <th>Hình ảnh</th>
+                                        <th>Mô tả</th>
+                                        <th>Loại</th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>*@
+                            <tbody>
+                                @foreach (var container in Model)
+                                {
+                                    <tr>
+                                        <td>@container.containername</td>
+                                        <td>@container.cpu</td>
+                                        <td>@container.ram</td>
+                                        <td>@container.sshkey</td>
+                                        <td>@container.enddate</td>
+                                        @*<td>@container.status</td>*@
+                                        <td id="@container.containername">@container.sshcommand</td>
+                                        <td>
+                                            <button class="btn btn-primary  btn-sm rounded-0" onclick="copyToClipboard('@container.containername')">
+                                                <i class="fas fa-copy"></i>Copy
+                                            </button>
+                                            <button class="btn btn-danger btn-sm rounded-0"><i class="fas fa-trash-alt"></i>@Html.ActionLink("Xóa", "StopContainer", new { containerName = container.containername }, new { Style = "color:White;" })</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @*</div>*@
+            <!--endbody-->
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="/Content/js-admin/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="/Content/assets/demo/chart-area-demo.js"></script>
+    <script src="/Content/assets/demo/chart-bar-demo.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+    <script src="/Content/assets/demo/datatables-demo.js"></script>
+
+    <script>
+        function copyToClipboard(elementId) {
+
+            // Create a "hidden" input
+            var aux = document.createElement("input");
+
+            // Assign it the value of the specified element
+            aux.setAttribute("value", document.getElementById(elementId).innerHTML);
+
+            // Append it to the body
+            document.body.appendChild(aux);
+
+            // Highlight its content
+            aux.select();
+
+            // Copy the highlighted text
+            document.execCommand("copy");
+
+            // Remove it from the body
+            document.body.removeChild(aux);
+
+        }
+    </script>
+
+</body>
+</html>
+
+
+

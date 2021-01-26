@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DienToanDamMayModelStoreContainer" CdmEntityContainer="DienToanDamMayEntities">
+    <EntitySetMapping Name="Account">
+      <EntityTypeMapping TypeName="DienToanDamMayModel.Account">
+        <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="isadmin" ColumnName="isadmin" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ManageContainer">
+      <EntityTypeMapping TypeName="DienToanDamMayModel.ManageContainer">
+        <MappingFragment StoreEntitySet="ManageContainer">
+          <ScalarProperty Name="sshcommand" ColumnName="sshcommand" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="enddate" ColumnName="enddate" />
+          <ScalarProperty Name="sshkey" ColumnName="sshkey" />
+          <ScalarProperty Name="ram" ColumnName="ram" />
+          <ScalarProperty Name="cpu" ColumnName="cpu" />
+          <ScalarProperty Name="port" ColumnName="port" />
+          <ScalarProperty Name="ip" ColumnName="ip" />
+          <ScalarProperty Name="containername" ColumnName="containername" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

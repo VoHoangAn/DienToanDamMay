@@ -1,0 +1,117 @@
+﻿@{
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+    <!-- Title Page-->
+    <title>Register</title>
+    <!-- Icons font CSS-->
+    <link href="/Content/register/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="/Content/register/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- Vendor CSS-->
+    <link href="/Content/register/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="/Content/register/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+    <!-- Main CSS-->
+    <link href="/Content/register/css/main.css" rel="stylesheet" media="all">
+
+    
+</head>
+<body>
+    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+
+        <div class="wrapper wrapper--w680">
+
+            <div class="card card-4">
+
+                <div class="card-body">
+
+                    <h2 class="title">Registration Form</h2>
+                    <form>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Username</label>
+                                    <input class="input--style-4 username" type="text" name="username" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Password</label>
+                                    <input class="input--style-4 password" type="password" name="password" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Repeat password</label>
+                                    <input class="input--style-4 repeatpassword" type="password" name="repeatpassword" value="">
+                                </div>
+
+                                <div class="alert"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-t-15">
+                            <button class="btn btn--radius-2 btn--blue" type="button">Register</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- Jquery JS-->
+    <script src="/Content/register/vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="/Content/register/vendor/select2/select2.min.js"></script>
+    <script src="/Content/register/vendor/datepicker/moment.min.js"></script>
+    <script src="/Content/register/vendor/datepicker/daterangepicker.js"></script>
+    <!-- Main JS-->
+    <script src="js/global.js"></script>
+
+    <script>
+        $('.btn').on('click', function (e) {
+            var userName = $('.username').val();
+            var pw = $('.password').val();
+            var repeatPassword = $('.repeatpassword').val();
+
+            if (pw != repeatPassword) {
+                e.preventDefault();
+                $('.alert-danger').text('* Mật khẩu không khớp');
+            }
+            else {
+                $.post('/Home/Register/', { username: userName, password: pw }, function (response) {
+                    if (response === 'Success') {
+                        $('.alert').text('* Đăng kí thành công');
+
+                        setTimeout(function () {
+                            window.location.href = "/Home/Login";
+                        }, 1000);
+                    }
+                    else {
+                        $('.alert').text('* Username đã tồn tại');
+                    }
+                })
+            }
+        })
+
+
+    </script>
+</body>
+</html>
+<!-- end document-->

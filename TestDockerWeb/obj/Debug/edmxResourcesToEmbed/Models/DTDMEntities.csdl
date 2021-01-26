@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DienToanDamMayModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="DienToanDamMayEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Account" EntityType="DienToanDamMayModel.Account" />
+    <EntitySet Name="ManageContainer" EntityType="DienToanDamMayModel.ManageContainer" />
+    <AssociationSet Name="FK_ManageContainer_Account" Association="DienToanDamMayModel.FK_ManageContainer_Account">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="ManageContainer" EntitySet="ManageContainer" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="username" Type="String" Nullable="false" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="password" Type="String" Nullable="false" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="isadmin" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ManageContainer" Relationship="DienToanDamMayModel.FK_ManageContainer_Account" FromRole="Account" ToRole="ManageContainer" />
+  </EntityType>
+  <EntityType Name="ManageContainer">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" Nullable="false" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="containername" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ip" Type="String" Nullable="false" MaxLength="16" FixedLength="true" Unicode="true" />
+    <Property Name="port" Type="Int32" Nullable="false" />
+    <Property Name="cpu" Type="Double" Nullable="false" />
+    <Property Name="ram" Type="String" Nullable="false" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="sshkey" Type="String" Nullable="false" MaxLength="255" FixedLength="true" Unicode="true" />
+    <Property Name="enddate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="status" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="sshcommand" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Account" Relationship="DienToanDamMayModel.FK_ManageContainer_Account" FromRole="ManageContainer" ToRole="Account" />
+  </EntityType>
+  <Association Name="FK_ManageContainer_Account">
+    <End Type="DienToanDamMayModel.Account" Role="Account" Multiplicity="1" />
+    <End Type="DienToanDamMayModel.ManageContainer" Role="ManageContainer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="ManageContainer">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

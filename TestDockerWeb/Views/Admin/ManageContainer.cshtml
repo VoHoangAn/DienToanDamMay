@@ -1,0 +1,59 @@
+﻿@model IEnumerable<TestDockerWeb.Models.ManageContainer>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<div class="container-fluid">
+    <h1 class="mt-4 text-center">Quản lí Container</h1>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table mr-1"></i>
+            Danh sách container
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Container Name</th>
+                            <th>IP</th>
+                            <th>Port</th>
+                            <th>CPU</th>
+                            <th>RAM</th>
+                            @*<th>SSH Key</th>*@
+                            <th>End date</th>
+                            @*<td>Status</td>
+                            <td>SSH Command</td>*@
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var container in Model)
+                        {
+                        <tr>
+                            <td>@container.username</td>
+                            <td>@container.containername</td>
+                            <td>@container.ip</td>
+                            <td>@container.port</td>
+                            <td>@container.cpu</td>
+                            <td>@container.ram</td>
+                            @*<td>@container.sshkey</td>*@
+                            <td>@container.enddate</td>
+                            @*<td>@container.status</td>*@
+                            @*<td>@container.sshcommand</td>*@
+                            <td>
+                                <button class="btn btn-danger  btn-sm rounded-0"><i class="fa fa-trash "></i>@Html.ActionLink("Xóa", "RemoveContainer","Home", new { containerName = container.containername }, new { Style = "color:White;" })</button>
+                                <button class="btn btn-primary  btn-sm rounded-0 "><i class="fas fa-eye"></i>@Html.ActionLink("Chi tiết", "Details", new { id = container.id }, new { Style = "color:White;" })</button>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

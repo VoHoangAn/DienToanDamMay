@@ -1,0 +1,176 @@
+﻿@{
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+    <!-- Title Page-->
+    <title>Register</title>
+    <!-- Icons font CSS-->
+    <link href="/Content/register/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="/Content/register/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- Vendor CSS-->
+    <link href="/Content/register/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="/Content/register/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+    <!-- Main CSS-->
+    <link href="/Content/register/css/main.css" rel="stylesheet" media="all">
+
+    <style>
+             /* Start by setting display:none to make this hidden.
+        Then we position it in relation to the viewport window
+        with position:fixed. Width, height, top and left speak
+        for themselves. Background we set to 80% white with
+        our animation centered, and no-repeating */
+             .modal {
+                 display: none;
+                 position: fixed;
+                 z-index: 1000;
+                 top: 0;
+                 left: 0;
+                 height: 100%;
+                 width: 100%;
+                 background: rgba( 255, 255, 255, .8 ) url('/Content/loading.gif') 50% 50% no-repeat;
+             }
+
+             /* When the body has the loading class, we turn
+        the scrollbar off with overflow:hidden */
+             body.loading .modal {
+                 overflow: hidden;
+             }
+
+             /* Anytime the body has the loading class, our
+        modal element will be visible */
+             body.loading .modal {
+                 display: block;
+             }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+
+        <div class="wrapper wrapper--w680">
+
+            <div class="card card-4">
+
+                <div class="card-body">
+
+                    <h2 class="title">Initial Container Form</h2>
+                    <form>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Container Name</label>
+                                    <input class="input--style-4 containername" type="text" name="containername" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">CPU</label>
+                                    <input class="input--style-4 cpu" type="text" name="cpu" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">RAM</label>
+                                    <input class="input--style-4 ram" type="text" name="ram" value="">
+                                </div>
+                                <div class="input-group">
+                                    <label class="label">SSH Key</label>
+                                    <input class="input--style-4 sshkey" type="text" name="sshkey" value="">
+                                </div>
+                                <div class="alert"></div>
+                            </div>
+                            
+                        </div>
+
+                        <div class="p-t-15">
+                            <button class="btn btn--radius-2 btn--blue" type="button">Initial</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    @*<div class="modal">
+            <p><img src="/Content/loading.gif" /> Please Wait</p>
+        </div>*@
+    <div class="modal"><!-- Place at bottom of page --></div>
+
+    <!-- Jquery JS-->
+    <script src="/Content/register/vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="/Content/register/vendor/select2/select2.min.js"></script>
+    <script src="/Content/register/vendor/datepicker/moment.min.js"></script>
+    <script src="/Content/register/vendor/datepicker/daterangepicker.js"></script>
+    <!-- Main JS-->
+    <script src="js/global.js"></script>
+
+    <script>
+        //$(document).ajaxStart(function () {
+        //    $('#loading').addClass("loading");
+        //}).ajaxStop(function () {
+        //    $('#loading').removeClass("loading");
+        //});
+        $body = $("body");
+
+        $(document).on({
+            ajaxStart: function () { $body.addClass("loading"); },
+            ajaxStop: function () { $body.removeClass("loading"); }
+        });
+
+        $('.btn').on('click', function (e) {
+            var containername = $('.containername').val();
+            var cpu = parseFloat($('.cpu').val());
+            var ram = $('.ram').val();
+            var sshkey = $('.sshkey').val();
+
+            console.log(containername);
+            console.log(cpu);
+            console.log(ram);
+            console.log(sshkey);
+            if (containername == "" || cpu == NaN
+                || ram == "" || sshkey == "") {
+
+                e.preventDefault();
+                $('.alert').text('* Vui lòng điền đầy đủ thông tin');
+            }
+            else {
+                $.post('/Home/InitialContainer/',
+                    { containerName: containername, sshKey: sshkey, cpu: cpu, ram: ram },
+                    function (response) {
+                        if (response === 'Success') {
+                            $('.alert').text('* Đã khởi tạo container');
+
+                            setTimeout(function () {
+                                window.location.href = "/Home/UserContainer";
+                            }, 1000);
+                        }
+                        else {
+                            $('.alert').text('* Container name đã tồn tại');
+                        }
+                    })
+            }
+        })
+
+
+    </script>
+</body>
+</html>
+<!-- end document-->

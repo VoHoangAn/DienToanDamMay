@@ -1,0 +1,137 @@
+﻿@model TestDockerWeb.Models.ManageContainer
+
+@{
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+    <!-- Title Page-->
+    <title>Container Details</title>
+    <!-- Icons font CSS-->
+    <link href="/Content/register/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="/Content/register/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- Vendor CSS-->
+    <link href="/Content/register/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="/Content/register/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+    <!-- Main CSS-->
+    <link href="/Content/register/css/main.css" rel="stylesheet" media="all">
+
+</head>
+<body>
+    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+
+        <div class="wrapper wrapper--w680">
+
+            <div class="card card-4">
+
+                <div class="card-body">
+
+                    <h2 class="title">Container Details</h2>
+                    <form>
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group">
+                                    <label class="label">Username</label>
+                                    <input class="input--style-4 "  disabled type="text" name="username" value="@Model.username">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group">
+                                    <label class="label">SSH Command</label>
+                                    <input class="input--style-4 " style="margin-left:20px" disabled type="text" name="containername" value="@Model.sshcommand">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Container Name</label>
+                                    <input class="input--style-4 " disabled type="text" name="containername" value="@Model.containername">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group">
+                                    <label class="label">IP</label>
+                                    <input class="input--style-4" disabled type="text" name="ip" value="@Model.ip">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group">
+                                    <label class="label">Port</label>
+                                    <input class="input--style-4" style="margin-left:20px" disabled type="text" name="containername" value="@Model.port">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group">
+                                    <label class="label">CPU</label>
+                                    <input class="input--style-4 containername" disabled type="text" name="containername" value="@Model.cpu">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group">
+                                    <label class="label">RAM</label>
+                                    <input class="input--style-4 containername" style="margin-left:20px" disabled type="text" name="containername" value="@Model.ram">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">SSH Key</label>
+                                    <input class="input--style-4 containername" disabled type="text" name="containername" value="@Model.sshkey">
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">RAM</label>
+                                    <input class="input--style-4 ram" type="text" disabled name="ram" value="">
+                                </div>
+                                <div class="input-group">
+                                    <label class="label">SSH Key</label>
+                                    <input class="input--style-4 sshkey" type="text" name="sshkey" value="">
+                                </div>
+
+                            </div>
+                            <div class="alert"></div>
+                        </div>*@
+
+                        @*<div class="p-t-15">
+            <button class="btn btn--radius-2 btn--blue" type="button">Initial</button>
+        </div>*@
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Jquery JS-->
+    <script src="/Content/register/vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="/Content/register/vendor/select2/select2.min.js"></script>
+    <script src="/Content/register/vendor/datepicker/moment.min.js"></script>
+    <script src="/Content/register/vendor/datepicker/daterangepicker.js"></script>
+    <!-- Main JS-->
+    <script src="js/global.js"></script>
+
+</body>
+</html>
+<!-- end document-->
